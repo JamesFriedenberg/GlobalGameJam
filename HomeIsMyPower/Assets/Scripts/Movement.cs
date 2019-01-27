@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour {
     private Vector3 mousePosition;
     public int moveSpeed;
     public Camera cam;
+    private Rigidbody rb;
 
     // look rotation stuff
     public float XSensitivity = 2f;
@@ -29,7 +30,7 @@ public class Movement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        rb = GetComponent<Rigidbody>();
 	}
 
     public void Init(Transform character, Transform camera)
@@ -44,6 +45,12 @@ public class Movement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.LeftShift)){
             Dash();
         }
+
+        /*
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Jump();
+        }
+        */
 
         MoveInput();
 
@@ -182,6 +189,10 @@ public class Movement : MonoBehaviour {
         if (Input.GetKey(KeyCode.S)){
             transform.Translate(Vector3.forward * (Time.deltaTime * -moveSpeed));
         }
+    }
+
+    void Jump(){
+        rb.AddForce(new Vector3(0, 10, 0), ForceMode.Impulse);
     }
 
 }
