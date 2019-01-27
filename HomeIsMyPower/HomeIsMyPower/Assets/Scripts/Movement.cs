@@ -18,6 +18,11 @@ public class Movement : MonoBehaviour {
     [SerializeField]
     private ParticleSystem DashEmmitter;
 
+    // resources
+    private float bulletCost;
+    private float dashCost;
+    private float healCost;
+
     // bullet stuff
     public GameObject bulletObj;
     public List<GameObject> bulletList;
@@ -65,6 +70,10 @@ public class Movement : MonoBehaviour {
 
         healthBar.Init(100, 100);
         manaBar.Init(100,100);
+
+        healCost = 30.0f;
+        bulletCost = 10.0f;
+        dashCost = 20.0f;
     }
 
     // Update is called once per frame
@@ -75,18 +84,27 @@ public class Movement : MonoBehaviour {
             switch (powerSwitch)
             {
                 case 0:
-                    CreateBullet();
-                    bulletList[bulletList.Count - 1].transform.forward = GameObject.FindGameObjectWithTag("Player").transform.forward;
-                    playerAnimation.SetInteger("Action", 5);
-                    playerAnimation.SetTrigger("AttackTrigger");
+                    if (manaBar.currVal >= bulletCost) {
+                        CreateBullet();
+                        bulletList[bulletList.Count - 1].transform.forward = GameObject.FindGameObjectWithTag("Player").transform.forward;
+                        playerAnimation.SetInteger("Action", 5);
+                        playerAnimation.SetTrigger("AttackTrigger");
+                        manaBar.CurrVal -= bulletCost;
+                    }
                     break;
 
                 case 1:
-                    Dash();
+                    if (manaBar.currVal >= dashCost) {
+                        Dash();
+                        manaBar.CurrVal -= dashCost;
+                    }
                     break;
 
                 case 2:
-                    Instantiate(HealEmmitter, transform.position, Quaternion.identity);
+                    if (manaBar.currVal >= healCost) {
+                        Instantiate(HealEmmitter, transform.position, Quaternion.identity);
+                        manaBar.CurrVal -= healCost;
+                    }
                     break;
             }
         }
