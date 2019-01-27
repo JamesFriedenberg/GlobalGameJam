@@ -18,6 +18,14 @@ public class Movement : MonoBehaviour {
     [SerializeField]
     private ParticleSystem DashEmmitter;
 
+    // bullet stuff
+    public GameObject bulletObj;
+    public List<GameObject> bulletList;
+    public List<float> destroyTimes;
+    public float bulletDestroyDelay = 2.0f;
+    public int bulletSpeed;
+    private float currentTime;
+
     [SerializeField]
     private ParticleSystem HealEmmitter;
     private int pSystemTimer = 0;
@@ -67,7 +75,10 @@ public class Movement : MonoBehaviour {
             switch (powerSwitch)
             {
                 case 0:
-                    Dash();
+                    CreateBullet();
+                    bulletList[bulletList.Count - 1].transform.forward = GameObject.FindGameObjectWithTag("Player").transform.forward;
+                    playerAnimation.SetInteger("Action", 5);
+                    playerAnimation.SetTrigger("AttackTrigger");
                     break;
 
                 case 1:
@@ -156,6 +167,23 @@ public class Movement : MonoBehaviour {
             Destroy(dashClone, 1.0f);
             playerAnimation.SetInteger("Jumping", dashAnim);
         }
+
+
+        // start bullet update ///////////////////////
+        // set current time
+        currentTime = Time.time;
+        // check if there are any bullets in the list
+        if (bulletList.Count > 0)
+        {
+            for (int i = 0; i < bulletList.Count; i++)
+            {
+                MoveBullet(i);
+
+            }
+        }
+
+        DestroyBullets();
+        // end bullet update ////////////////////
     }
 
     private void Dash() {
@@ -245,4 +273,39 @@ public class Movement : MonoBehaviour {
             playerAnimation.SetTrigger("RollTrigger");
         }
     }
+
+    // start bullet stuff /////////////////////////////////////////////////////////////////////////
+    void CreateBullet()
+    {
+
+        bulletList.Add(Object.Instantiate(bulletObj, GameObject.FindGameObjectWithTag("FirePoint").transform.position, Quaternion.identity));
+        // bulletList[bulletList.Count].transform.forward = GameObject.FindGameObjectWithTag("Player").transform.forward;
+        destroyTimes.Add(Time.time);
     }
+
+    void MoveBullet(int bulletToMove)
+    {
+
+        // bulletList[bulletToMove].transform.forward = GameObject.FindGameObjectWithTag("Player").transform.forward;
+        bulletList[bulletToMove].transform.Translate(Vector3.forward * (Time.deltaTime * bulletSpeed));
+
+    }
+
+    void DestroyBullets()
+    {
+
+        for (int i = 0; i < bulletList.Count; i++)
+        {
+            if (currentTime - destroyTimes[i] >= bulletDestroyDelay)
+            {
+                Destroy(bulletList[i]);
+                bulletList.Remove(bulletList[i]);
+
+                destroyTimes.Remove(destroyTimes[i]);
+            }
+        }
+
+    }
+
+    // end bullet stuff ////////////////////////////////////////////////////////////////////////////////
+}

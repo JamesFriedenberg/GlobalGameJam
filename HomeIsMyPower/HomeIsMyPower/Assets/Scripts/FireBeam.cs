@@ -39,7 +39,8 @@ public class FireBeam : MonoBehaviour {
 
     void CreateBullet() {
 
-        bulletList.Add(Object.Instantiate(bulletObj, gameObject.transform.GetChild(1).gameObject.transform.position, Quaternion.identity));
+        bulletList.Add(Object.Instantiate(bulletObj, gameObject.transform.GetChild(3).gameObject.transform.position, Quaternion.identity));
+        Debug.Log(gameObject.transform.GetChild(3).gameObject.transform.position);
         // bulletList[bulletList.Count].transform.forward = GameObject.FindGameObjectWithTag("Player").transform.forward;
         destroyTimes.Add(Time.time);
     }
