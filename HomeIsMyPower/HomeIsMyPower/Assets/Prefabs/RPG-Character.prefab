@@ -71,6 +71,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1076490468051344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4438254641494420}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: FirePoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1104902477383794
 GameObject:
   m_ObjectHideFlags: 1
@@ -1145,9 +1160,10 @@ Transform:
   - {fileID: 4286880372015160}
   - {fileID: 4388829927765634}
   - {fileID: 4568897512325418}
+  - {fileID: 4438254641494420}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 5.2790003, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4328093857992034
 Transform:
   m_ObjectHideFlags: 1
@@ -1257,6 +1273,19 @@ Transform:
   - {fileID: 4625807233627014}
   m_Father: {fileID: 4607081714952348}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4438254641494420
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1076490468051344}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.69, z: 0.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4304756038282986}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4444600014203330
 Transform:
@@ -1966,8 +1995,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 12
   comboCounterSword: 0
-  particleSystem: {fileID: 198562552605722636, guid: d568ae068ebab954fbf3a5d621b46b27,
+  DashEmmitter: {fileID: 198562552605722636, guid: d568ae068ebab954fbf3a5d621b46b27,
     type: 2}
+  bulletObj: {fileID: 0}
+  bulletList: []
+  destroyTimes: []
+  bulletDestroyDelay: 2
+  bulletSpeed: 10
+  HealEmmitter: {fileID: 198361633826475406, guid: 2ee4c4fa9ba384747a2a8768ea3d1d30,
+    type: 2}
+  powerSwitch: 0
+  healthBar: {fileID: 0}
+  manaBar: {fileID: 0}
+  powerIcon: {fileID: 0}
+  energyIcon: {fileID: 21300000, guid: 7d2d33868e7ddc446b173138d33d0bcf, type: 3}
+  healIcon: {fileID: 21300000, guid: 2870a2b73e176ba46825a2f9aa0e1495, type: 3}
+  dashIcon: {fileID: 21300000, guid: 105ffec77aafbc246b15e477ef951573, type: 3}
   playerAnimation: {fileID: 0}
 --- !u!136 &136631261842173844
 CapsuleCollider:
